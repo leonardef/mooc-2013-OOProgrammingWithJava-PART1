@@ -9,11 +9,43 @@ public class GuessingGame {
         this.reader = new Scanner(System.in);
     }
 
-    public void play(int lowerLimit, int upperLimit) {
-        instructions(lowerLimit, upperLimit);
+    public boolean isGreaterThan(int value) {   // 105.1
+        System.out.println("Is your number greater than " + value + "? (y/n)");
+        String answer = reader.nextLine();
 
-        // write the guessing logic here
+        if (answer.equals("y")) {
+            return true;
+        } else {
+            return false;
+        }
 
+    }
+
+    public int average(int firstNumber, int secondNumber) {   // 105.2
+        return (firstNumber+secondNumber) / 2;
+    }
+
+    public void play(int lowerLimit, int upperLimit) {   // 105.3
+        int average;
+        boolean greater;
+
+        instructions(upperLimit,lowerLimit);
+
+        while (true) {
+            if (lowerLimit==upperLimit) {
+                System.out.println("The number you're thinking of is " + upperLimit + ".");
+                break;
+            }
+
+            average = this.average(lowerLimit, upperLimit);   // get average of lower and upper
+            greater = this.isGreaterThan(average);    // is searchedFor larger than average?
+
+            if (greater) {
+                lowerLimit = average+1;
+            } else {
+                upperLimit = average;
+            }
+        }
     }
 
     // implement here the methods isGreaterThan and average
